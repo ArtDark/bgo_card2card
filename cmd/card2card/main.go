@@ -3,17 +3,23 @@ package main
 import (
 	"fmt"
 	"github.com/ArtDark/bgo_card2card/pkg/card"
+	"github.com/ArtDark/bgo_card2card/pkg/transfer"
 )
 
 func main() {
 
-	svc := card.NewService("art")
-	fmt.Println(svc)
+	yourBank := card.NewService("Your Bank")
+	myBank := card.NewService("Artyom Bank")
 
-	visa := svc.IssueCard(0001, "Artem", "Balusov", "Visa", "RUR")
-	master := svc.IssueCard(0002, "Ivan", "Ivanov", "MasterCard", "RUR")
+	yourBank.IssueCard(0001, "Artyom", "Balusov", "Visa", "RUR")
+	yourBank.IssueCard(0002, "Ivan", "Ivanov", "MasterCard", "RUR")
+	myBank.IssueCard(0001, "Peter", "Petrov", "Visa", "EUR")
+	myBank.IssueCard(0002, "Alexander", "Pushkin", "MasterCard", "RUR")
 
-	fmt.Println(visa)
-	fmt.Println(master)
+	trans := transfer.NewService(yourBank, 1, 30)
+
+	fmt.Println(yourBank)
+	fmt.Println(myBank)
+	fmt.Println(trans)
 
 }

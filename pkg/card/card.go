@@ -17,7 +17,7 @@ type Card struct {
 
 type Service struct {
 	BankName string
-	Cards    []*Card
+	Cards    []Card
 }
 
 type cardId int64
@@ -26,8 +26,8 @@ func NewService(bankName string) *Service {
 	return &Service{BankName: bankName}
 }
 
-func (s *Service) IssueCard(id cardId, fistName, lastName, issuer, currency string) *Card {
-	card := &Card{
+func (s *Service) IssueCard(id cardId, fistName, lastName, issuer, currency string) Card {
+	card := Card{
 		Id: id,
 		Owner: Owner{
 			FirstName: fistName,
