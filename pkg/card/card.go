@@ -6,10 +6,10 @@ type Owner struct {
 }
 
 type Card struct {
-	Id CardId
+	Id cardId
 	Owner
 	Issuer   string
-	Balance  int64
+	Balance  int
 	Currency string
 	Number   string
 	Icon     string
@@ -20,23 +20,31 @@ type Service struct {
 	Cards    []*Card
 }
 
-type CardId int64
+type cardId string
 
 func NewService(bankName string) *Service {
 	return &Service{BankName: bankName}
 }
 
-func (s *Service) IssueCard(id CardId, fistName, lastName, issuer, currency string) *Card {
-	card := &Card{
+func (s *Service) IssueCard(
+	id cardId,
+	fistName,
+	lastName,
+	issuer string,
+	balance int,
+	currency string,
+	number string,
+) *Card {
+	var card = &Card{
 		Id: id,
 		Owner: Owner{
 			FirstName: fistName,
 			LastName:  lastName,
 		},
 		Issuer:   issuer,
-		Balance:  0,
+		Balance:  balance,
 		Currency: currency,
-		Number:   "0001",
+		Number:   number,
 		Icon:     "https://.../logo.png",
 	}
 	s.Cards = append(s.Cards, card)
