@@ -57,3 +57,13 @@ func (s *Service) CardIssue(
 	s.Cards = append(s.Cards, card)
 	return card
 }
+
+// Метод поиска банковской карты по номеру платежной системы
+func (s *Service) Card(number string) *Card {
+	for _, с := range s.Cards {
+		if number == с.Number {
+			return с
+		}
+	}
+	return nil
+}
