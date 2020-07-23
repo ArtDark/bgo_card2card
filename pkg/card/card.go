@@ -1,32 +1,39 @@
+// Пакет управления банковскими картами
 package card
 
-type Owner struct {
-	FirstName string
-	LastName  string
-}
-
+// Описание банковской карты
 type Card struct {
-	Id cardId
-	Owner
-	Issuer   string
-	Balance  int
-	Currency string
-	Number   string
-	Icon     string
+	Id       cardId // Идентификатор карты в системе банка
+	Owner           // Владелец карты
+	Issuer   string // Длатежная истема
+	Balance  int    // Баланс карты
+	Currency string // Валюта
+	Number   string // Номер карты в платежной системе
+	Icon     string // Иконка платежной системы
 }
 
+// Идентификат банковской карты
+type cardId string
+
+// Инициалы владельца банковской карты
+type Owner struct {
+	FirstName string // Имя владельца карты
+	LastName  string // Фамилия владельца карты
+}
+
+// Сервис банка
 type Service struct {
 	BankName string
 	Cards    []*Card
 }
 
-type cardId string
-
-func NewService(bankName string) *Service {
+// Конструктор сервиса
+func New(bankName string) *Service {
 	return &Service{BankName: bankName}
 }
 
-func (s *Service) IssueCard(
+// Метод создания экземпляра банковской карты
+func (s *Service) CardIssue(
 	id cardId,
 	fistName,
 	lastName,
@@ -49,4 +56,14 @@ func (s *Service) IssueCard(
 	}
 	s.Cards = append(s.Cards, card)
 	return card
+}
+
+// Метод поиска банковской карты по номеру платежной системы
+func (s *Service) Card(number string) *Card {
+	for _, с := range s.Cards {
+		if number == с.Number {
+			return с
+		}
+	}
+	return nil
 }
