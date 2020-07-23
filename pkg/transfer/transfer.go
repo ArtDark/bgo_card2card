@@ -20,16 +20,25 @@ func (s *Service) Card2Card(from, to string, amount int) (total int, ok bool) {
 	fromCard := s.CardSvc.Card(from)
 	toCard := s.CardSvc.Card(to)
 
-	if fromCard == nil || toCard == nil {
+	if fromCard == nil && toCard == nil {
 		return int(float64(amount) + commission), false
 	}
 
-	fromBalance := &fromCard.Balance
-	toBalance := &toCard.Balance
+	if fromCard == nil {
+		toCard.Balance += amount
+		return int(float64(amount) + commission), true
+
+	}
+
+	if toCard == nil {
+		fromCard.Balance -= int(float64(amount) + commission)
+		return int(float64(amount) + commission), true
+
+	}
 
 	if fromCard.Balance >= amount {
-		*fromBalance -= int(float64(amount) + commission)
-		*toBalance += amount
+		fromCard.Balance -= int(float64(amount) + commission)
+		toCard.Balance += amount
 	} else {
 		return int(float64(amount) + commission), false
 	}
