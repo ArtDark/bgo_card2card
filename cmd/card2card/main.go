@@ -8,9 +8,9 @@ import (
 
 func main() {
 
-	svc := card.NewService("YourBank")
+	svc := card.New("YourBank")
 
-	visa := svc.IssueCard(
+	visa := svc.CardIssue(
 		"0001",
 		"Artem",
 		"Balusov",
@@ -20,7 +20,7 @@ func main() {
 		"1233_2342_2342_4322",
 	)
 
-	master := svc.IssueCard(
+	master := svc.CardIssue(
 		"0002",
 		"Ivan",
 		"Ivanov",
