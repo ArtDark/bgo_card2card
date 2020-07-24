@@ -14,22 +14,20 @@ func NewService(cardSvc *card.Service, commission float64, commissionMin int64) 
 }
 
 func (s *Service) Card2Card(from, to string, amount int) (total int, ok bool) {
-	var fromBalance *int
-	var toBalance *int
 
 	commission := float64(amount) * s.Commission / 100.0
 
-	for _, cardNum := range s.CardSvc.Cards {
-		if from == cardNum.Number {
-			fromBalance = &cardNum.Balance
-		} else if to == cardNum.Number {
-			toBalance = &cardNum.Balance
-		} else {
-			return int(float64(amount) + commission), true
-		}
+	fromCard := s.CardSvc.Card(from)
+	toCard := s.CardSvc.Card(to)
+
+	if fromCard == nil || toCard == nil {
+		return int(float64(amount) + commission), false
 	}
 
-	if *fromBalance >= amount {
+	fromBalance := &fromCard.Balance
+	toBalance := &toCard.Balance
+
+	if fromCard.Balance >= amount {
 		*fromBalance -= int(float64(amount) + commission)
 		*toBalance += amount
 	} else {
