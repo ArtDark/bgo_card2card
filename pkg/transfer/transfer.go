@@ -30,7 +30,7 @@ func (s *Service) Card2Card(from, to string, amount int) (total int, ok bool) {
 
 	}
 
-	if toCard == nil {
+	if toCard == nil && fromCard.Balance >= amount {
 		fromCard.Balance -= int(float64(amount) + commission)
 		return int(float64(amount) + commission), true
 
