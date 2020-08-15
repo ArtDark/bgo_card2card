@@ -17,7 +17,7 @@ func main() {
 		"Visa",
 		12345_67,
 		"RUR",
-		"1233_2342_2342_4322",
+		"5106_2142_2342_4322",
 	)
 
 	master := svc.CardIssue(
@@ -27,7 +27,7 @@ func main() {
 		"MasterCard",
 		98765_43,
 		"RUR",
-		"3242_3242_4322_2342",
+		"5106_2142_4322_2342",
 	)
 	fmt.Println(svc)
 	fmt.Println(visa)

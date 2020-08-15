@@ -1,8 +1,12 @@
 // Пакет для работы с транзакциями между картами
 package transfer
 
-import "github.com/ArtDark/bgo_card2card/pkg/card"
+import (
+	"errors"
+	"github.com/ArtDark/bgo_card2card/pkg/card"
+)
 
+//Структура сервиса
 type Service struct {
 	CardSvc       *card.Service
 	Commission    float64
@@ -13,34 +17,40 @@ func NewService(cardSvc *card.Service, commission float64, commissionMin int64) 
 	return &Service{CardSvc: cardSvc, Commission: commission, CommissionMin: commissionMin}
 }
 
-func (s *Service) Card2Card(from, to string, amount int) (total int, ok bool) {
+var (
+	ErrNotEnoughMoney = errors.New("not enough money")
+)
 
-	commission := float64(amount) * s.Commission / 100.0
+// Функция перевода с карты на карту
+func (s *Service) Card2Card(from, to string, amount int) (int, error) {
 
-	fromCard := s.CardSvc.Card(from)
-	toCard := s.CardSvc.Card(to)
+	commission := float64(amount) * s.Commission / 100.0 //Расчет комиссии
+	total := amount + int(commission)                    // Расчет суммы перевода с комиссией
 
-	if fromCard == nil && toCard == nil {
-		return int(float64(amount) + commission), false
+	fromCard := s.CardSvc.Card(from) // Поиск карты отправителя
+	toCard := s.CardSvc.Card(to)     // Поиск карты получателя
+
+	if fromCard == nil && toCard == nil { // Если нет наших карт
+		return amount, nil
 	}
 
 	if fromCard == nil {
 		toCard.Balance += amount
-		return int(float64(amount) + commission), true
-
+		return total, nil
 	}
 
 	if toCard == nil && fromCard.Balance >= amount {
 		fromCard.Balance -= int(float64(amount) + commission)
-		return int(float64(amount) + commission), true
-
+		return total, nil
 	}
 
-	if fromCard.Balance >= amount {
-		fromCard.Balance -= int(float64(amount) + commission)
-		toCard.Balance += amount
-	} else {
-		return int(float64(amount) + commission), false
+	if amount > fromCard.Balance { // Если баланс меньше суммы
+		return amount, ErrNotEnoughMoney
 	}
-	return int(float64(amount) + commission), true
+
+	fromCard.Balance -= int(float64(amount) + commission)
+	toCard.Balance += amount
+
+	return int(float64(amount) + commission), nil
+
 }
