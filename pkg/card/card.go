@@ -1,6 +1,8 @@
 // Пакет управления банковскими картами
 package card
 
+import "errors"
+
 // Описание банковской карты
 type Card struct {
 	Id       cardId // Идентификатор карты в системе банка
@@ -57,6 +59,8 @@ func (s *Service) CardIssue(
 	s.Cards = append(s.Cards, card)
 	return card
 }
+
+var ErrCardNotFound = errors.New("card not found")
 
 // Метод поиска банковской карты по номеру платежной системы
 func (s *Service) Card(number string) *Card {

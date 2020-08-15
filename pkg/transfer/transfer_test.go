@@ -21,7 +21,7 @@ func TestService_Card2Card(t *testing.T) {
 		fields    fields
 		args      args
 		wantTotal int
-		wantOk    bool
+		wantOk    error
 	}{
 		{
 			name: "Карта своего банка -> Карта своего банка (денег достаточно)",
@@ -38,7 +38,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "Visa",
 							Balance:  43534_34,
 							Currency: "RUR",
-							Number:   "2342_2342_5433_4322",
+							Number:   "5106_2142_5433_4322",
 							Icon:     "http://...",
 						},
 						{
@@ -50,7 +50,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "MasterCard",
 							Balance:  543534_23,
 							Currency: "RUR",
-							Number:   "4234_7563_6456_3453",
+							Number:   "5106_2163_6456_3453",
 							Icon:     "http://...",
 						},
 					},
@@ -59,12 +59,12 @@ func TestService_Card2Card(t *testing.T) {
 				CommissionMin: 10,
 			},
 			args: args{
-				from:   "2342_2342_5433_4322",
-				to:     "4234_7563_6456_3453",
+				from:   "5106_2142_5433_4322",
+				to:     "5106_2163_6456_3453",
 				amount: 1000_00,
 			},
 			wantTotal: 1005_00,
-			wantOk:    true,
+			wantOk:    nil,
 		},
 		{
 			name: "Карта своего банка -> Карта своего банка (денег недостаточно)",
@@ -81,7 +81,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "Visa",
 							Balance:  34_34,
 							Currency: "RUR",
-							Number:   "2342_2342_5433_4322",
+							Number:   "5106_2142_5433_4322",
 							Icon:     "http://...",
 						},
 						{
@@ -93,7 +93,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "MasterCard",
 							Balance:  543534_23,
 							Currency: "RUR",
-							Number:   "4234_7563_6456_3453",
+							Number:   "5106_2163_6456_3453",
 							Icon:     "http://...",
 						},
 					},
@@ -102,12 +102,12 @@ func TestService_Card2Card(t *testing.T) {
 				CommissionMin: 10,
 			},
 			args: args{
-				from:   "2342_2342_5433_4322",
-				to:     "4234_7563_6456_3453",
+				from:   "5106_2142_5433_4322",
+				to:     "5106_2163_6456_3453",
 				amount: 1000_00,
 			},
-			wantTotal: 1005_00,
-			wantOk:    false,
+			wantTotal: 1000_00,
+			wantOk:    ErrNotEnoughMoney,
 		},
 		{
 			name: "Карта своего банка -> Карта чужого банка (денег достаточно)",
@@ -124,7 +124,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "Visa",
 							Balance:  43534_34,
 							Currency: "RUR",
-							Number:   "2342_2342_5433_4322",
+							Number:   "5106_2142_5433_4322",
 							Icon:     "http://...",
 						},
 						{
@@ -136,7 +136,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "MasterCard",
 							Balance:  543534_23,
 							Currency: "RUR",
-							Number:   "4234_7563_6456_3453",
+							Number:   "5106_2163_6456_3453",
 							Icon:     "http://...",
 						},
 					},
@@ -145,12 +145,12 @@ func TestService_Card2Card(t *testing.T) {
 				CommissionMin: 10,
 			},
 			args: args{
-				from:   "2342_2342_5433_4322",
-				to:     "4234_7563_6456_3434",
+				from:   "5106_2142_5433_4322",
+				to:     "5106_2163_6456_3434",
 				amount: 1000_00,
 			},
 			wantTotal: 1005_00,
-			wantOk:    true,
+			wantOk:    nil,
 		},
 		{
 			name: "Карта своего банка -> Карта чужого банка (денег недостаточно)",
@@ -167,7 +167,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "Visa",
 							Balance:  34_34,
 							Currency: "RUR",
-							Number:   "2342_2342_5433_4322",
+							Number:   "5106_2142_5433_4322",
 							Icon:     "http://...",
 						},
 						{
@@ -179,7 +179,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "MasterCard",
 							Balance:  543534_23,
 							Currency: "RUR",
-							Number:   "4234_7563_6456_3453",
+							Number:   "5106_2163_6456_3453",
 							Icon:     "http://...",
 						},
 					},
@@ -188,12 +188,12 @@ func TestService_Card2Card(t *testing.T) {
 				CommissionMin: 10,
 			},
 			args: args{
-				from:   "2342_2342_5433_4322",
-				to:     "4234_7563_6456_3434",
+				from:   "5106_2142_5433_4322",
+				to:     "5106_2163_6456_3434",
 				amount: 1000_00,
 			},
-			wantTotal: 1005_00,
-			wantOk:    false,
+			wantTotal: 1000_00,
+			wantOk:    ErrNotEnoughMoney,
 		},
 		{
 			name: "Карта чужого банка -> Карта своего банка",
@@ -210,7 +210,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "Visa",
 							Balance:  43534_34,
 							Currency: "RUR",
-							Number:   "2342_2342_5433_4322",
+							Number:   "5106_2142_5433_4322",
 							Icon:     "http://...",
 						},
 						{
@@ -222,7 +222,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "MasterCard",
 							Balance:  543534_23,
 							Currency: "RUR",
-							Number:   "4234_7563_6456_3453",
+							Number:   "5106_2163_6456_3453",
 							Icon:     "http://...",
 						},
 					},
@@ -231,12 +231,12 @@ func TestService_Card2Card(t *testing.T) {
 				CommissionMin: 10,
 			},
 			args: args{
-				from:   "2342_2342_5433_4321",
-				to:     "4234_7563_6456_3453",
+				from:   "5106_2142_5433_4321",
+				to:     "5106_2163_6456_3453",
 				amount: 1000_00,
 			},
 			wantTotal: 1005_00,
-			wantOk:    true,
+			wantOk:    nil,
 		},
 		{
 			name: "Карта чужого банка -> Карта чужого банка",
@@ -253,7 +253,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "Visa",
 							Balance:  43534_34,
 							Currency: "RUR",
-							Number:   "2342_2342_5433_4322",
+							Number:   "5106_2142_5433_4322",
 							Icon:     "http://...",
 						},
 						{
@@ -265,7 +265,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "MasterCard",
 							Balance:  543534_23,
 							Currency: "RUR",
-							Number:   "4234_7563_6456_3453",
+							Number:   "5106_2163_6456_3453",
 							Icon:     "http://...",
 						},
 					},
@@ -274,26 +274,28 @@ func TestService_Card2Card(t *testing.T) {
 				CommissionMin: 10,
 			},
 			args: args{
-				from:   "2342_2342_5433_4321",
-				to:     "4234_7563_6456_3454",
+				from:   "5106_2142_5433_4321",
+				to:     "5106_2163_6456_3454",
 				amount: 1000_00,
 			},
-			wantTotal: 1005_00,
-			wantOk:    false,
+			wantTotal: 1000_00,
+			wantOk:    nil,
 		},
 	}
 	for _, tt := range tests {
-		s := &Service{
-			CardSvc:       tt.fields.CardSvc,
-			Commission:    tt.fields.Commission,
-			CommissionMin: tt.fields.CommissionMin,
-		}
-		gotTotal, gotOk := s.Card2Card(tt.args.from, tt.args.to, tt.args.amount)
-		if gotTotal != tt.wantTotal {
-			t.Errorf("Card2Card() gotTotal = %v, want %v", gotTotal, tt.wantTotal)
-		}
-		if gotOk != tt.wantOk {
-			t.Errorf("Card2Card() gotOk = %v, want %v", gotOk, tt.wantOk)
-		}
+		t.Run(tt.name, func(t *testing.T) {
+			s := &Service{
+				CardSvc:       tt.fields.CardSvc,
+				Commission:    tt.fields.Commission,
+				CommissionMin: tt.fields.CommissionMin,
+			}
+			gotTotal, gotOk := s.Card2Card(tt.args.from, tt.args.to, tt.args.amount)
+			if gotTotal != tt.wantTotal {
+				t.Errorf("Card2Card() gotTotal = %v, want %v", gotTotal, tt.wantTotal)
+			}
+			if gotOk != tt.wantOk {
+				t.Errorf("Card2Card() gotOk = %v, want %v", gotOk, tt.wantOk)
+			}
+		})
 	}
 }
