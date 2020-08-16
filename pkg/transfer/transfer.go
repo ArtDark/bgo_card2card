@@ -27,19 +27,20 @@ func (s *Service) Card2Card(from, to string, amount int) (int, error) {
 	commission := float64(amount) * s.Commission / 100.0 //Расчет комиссии
 	total := amount + int(commission)                    // Расчет суммы перевода с комиссией
 
-	fromCard := s.CardSvc.Card(from) // Поиск карты отправителя
-	toCard := s.CardSvc.Card(to)     // Поиск карты получателя
-
-	if fromCard == nil && toCard == nil { // Если нет наших карт
-		return amount, nil
-	}
-
-	if fromCard == nil {
+	toCard, err := s.CardSvc.Card(to)
+	if err != nil {
 		toCard.Balance += amount
+		return total, nil
+
+	}
+	fromCard, err := s.CardSvc.Card(from) // Поиск карты отправителя
+
+	// Поиск карты получателя
+	if fromCard == nil && toCard == nil {
 		return total, nil
 	}
 
-	if toCard == nil && fromCard.Balance >= amount {
+	if toCard != nil && fromCard.Balance >= amount {
 		fromCard.Balance -= int(float64(amount) + commission)
 		return total, nil
 	}
@@ -48,9 +49,9 @@ func (s *Service) Card2Card(from, to string, amount int) (int, error) {
 		return amount, ErrNotEnoughMoney
 	}
 
-	fromCard.Balance -= int(float64(amount) + commission)
+	fromCard.Balance -= total
 	toCard.Balance += amount
 
-	return int(float64(amount) + commission), nil
+	return total, nil
 
 }

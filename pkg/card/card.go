@@ -1,7 +1,10 @@
 // Пакет управления банковскими картами
 package card
 
-import "errors"
+import (
+	"errors"
+	"strings"
+)
 
 // Описание банковской карты
 type Card struct {
@@ -63,11 +66,12 @@ func (s *Service) CardIssue(
 var ErrCardNotFound = errors.New("card not found")
 
 // Метод поиска банковской карты по номеру платежной системы
-func (s *Service) Card(number string) *Card {
+func (s *Service) Card(number string) (*Card, error) {
+	var prefix = "5106_21"
 	for _, с := range s.Cards {
-		if number == с.Number {
-			return с
+		if strings.HasPrefix(с.Number, prefix) == true {
+			return с, nil
 		}
 	}
-	return nil
+	return nil, ErrCardNotFound
 }

@@ -146,7 +146,7 @@ func TestService_Card2Card(t *testing.T) {
 			},
 			args: args{
 				from:   "5106_2142_5433_4322",
-				to:     "5106_2163_6456_3434",
+				to:     "5106_2763_6456_3434",
 				amount: 1000_00,
 			},
 			wantTotal: 1005_00,
@@ -189,7 +189,7 @@ func TestService_Card2Card(t *testing.T) {
 			},
 			args: args{
 				from:   "5106_2142_5433_4322",
-				to:     "5106_2163_6456_3434",
+				to:     "5106_2763_6456_3434",
 				amount: 1000_00,
 			},
 			wantTotal: 1000_00,
@@ -231,7 +231,7 @@ func TestService_Card2Card(t *testing.T) {
 				CommissionMin: 10,
 			},
 			args: args{
-				from:   "5106_2142_5433_4321",
+				from:   "5106_2742_5433_4321",
 				to:     "5106_2163_6456_3453",
 				amount: 1000_00,
 			},
@@ -274,11 +274,11 @@ func TestService_Card2Card(t *testing.T) {
 				CommissionMin: 10,
 			},
 			args: args{
-				from:   "5106_2142_5433_4321",
-				to:     "5106_2163_6456_3454",
+				from:   "5106_2742_5433_4321",
+				to:     "5106_2963_6456_3454",
 				amount: 1000_00,
 			},
-			wantTotal: 1000_00,
+			wantTotal: 1005_00,
 			wantOk:    nil,
 		},
 	}
