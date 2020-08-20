@@ -3,7 +3,10 @@ package transfer
 
 import (
 	"errors"
+	"fmt"
 	"github.com/ArtDark/bgo_card2card/pkg/card"
+	"strconv"
+	"strings"
 )
 
 //Структура сервиса
@@ -20,6 +23,27 @@ func NewService(cardSvc *card.Service, commission float64, commissionMin int64) 
 var (
 	ErrNotEnoughMoney = errors.New("not enough money")
 )
+
+// Футкция проверки номера карты
+func IsValid(n string) (int, error) {
+	n = strings.ReplaceAll(n, " ", "")
+	sls := strings.Split(n, "")
+	slsInt := [16]int{}
+
+	for i, j := range sls {
+		var err interface{}
+		slsInt[i], err = strconv.Atoi(j)
+		if err != nil {
+			return fmt.Println(err)
+		}
+	}
+
+	for _, num := range slsInt {
+
+	}
+
+	return 0, nil
+}
 
 // Функция перевода с карты на карту
 func (s *Service) Card2Card(from, to string, amount int) (int, error) {

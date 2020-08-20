@@ -17,7 +17,7 @@ func main() {
 		"Visa",
 		12345_67,
 		"RUR",
-		"5106_2142_2342_4322",
+		"5106 2142 2342 4322",
 	)
 
 	master := svc.CardIssue(
@@ -27,18 +27,20 @@ func main() {
 		"MasterCard",
 		98765_43,
 		"RUR",
-		"5106_2142_4322_2342",
+		"5106 2142 4322 2342",
 	)
+
 	fmt.Println(svc)
 	fmt.Println(visa)
 	fmt.Println(master)
 
-	transferSrv := transfer.NewService(svc, 0.5, 10)
-
-	total, status := transferSrv.Card2Card("1233_2342_2342_4322", "3242_3242_4322_2342", 5000_00)
-
-	fmt.Println(total, status)
-	fmt.Println(visa)
-	fmt.Println(master)
-
+	transfer.IsValid("3243 2323 8768 8769")
+	//
+	//transferSrv := transfer.NewService(svc, 0.5, 10)
+	//
+	//total, status := transferSrv.Card2Card("1233_2342_2342_4322", "3242_3242_4322_2342", 5000_00)
+	//
+	//fmt.Println(total, status)
+	//fmt.Println(visa)
+	//fmt.Println(master)
 }
