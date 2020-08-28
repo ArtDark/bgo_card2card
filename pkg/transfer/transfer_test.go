@@ -146,7 +146,7 @@ func TestService_Card2Card(t *testing.T) {
 			},
 			args: args{
 				from:   "5106 2158 3920 4837",
-				to:     "5106 2763 6456 3434",
+				to:     "4578 8942 5433 4329",
 				amount: 1000_00,
 			},
 			wantTotal: 1005_00,
@@ -189,7 +189,7 @@ func TestService_Card2Card(t *testing.T) {
 			},
 			args: args{
 				from:   "5106 2158 3920 4837",
-				to:     "5106 2763 6456 3434",
+				to:     "4578 8942 5433 4329",
 				amount: 1000_00,
 			},
 			wantTotal: 1000_00,
@@ -231,7 +231,7 @@ func TestService_Card2Card(t *testing.T) {
 				CommissionMin: 10,
 			},
 			args: args{
-				from:   "5106 2742 5433 4321",
+				from:   "4578 8942 5433 4329",
 				to:     "5106 2163 6456 3456",
 				amount: 1000_00,
 			},
@@ -274,56 +274,99 @@ func TestService_Card2Card(t *testing.T) {
 				CommissionMin: 10,
 			},
 			args: args{
-				from:   "5106 2742 5433 4321",
-				to:     "5106 2963 6456 3454",
+				from:   "4578 8942 5433 4329",
+				to:     "4534 5963 6456 3456",
 				amount: 1000_00,
 			},
 			wantTotal: 1005_00,
 			wantOk:    nil,
 		},
-		//{
-		//	name: "Неправильная карта банка -> Карта чужого банка",
-		//	fields: fields{
-		//		CardSvc: &card.Service{
-		//			BankName: "YourBank",
-		//			Cards: []*card.Card{
-		//				{
-		//					Id: "0001",
-		//					Owner: card.Owner{
-		//						FirstName: "Artem",
-		//						LastName:  "Balusov",
-		//					},
-		//					Issuer:   "Visa",
-		//					Balance:  43534_34,
-		//					Currency: "RUR",
-		//					Number:   "5106 2158 3920 4837",
-		//					Icon:     "http://...",
-		//				},
-		//				{
-		//					Id: "0002",
-		//					Owner: card.Owner{
-		//						FirstName: "Ivan",
-		//						LastName:  "Ivanov",
-		//					},
-		//					Issuer:   "MasterCard",
-		//					Balance:  543534_23,
-		//					Currency: "RUR",
-		//					Number:   "5106 2163 6456 3456",
-		//					Icon:     "http://...",
-		//				},
-		//			},
-		//		},
-		//		Commission:    0.5,
-		//		CommissionMin: 10,
-		//	},
-		//	args: args{
-		//		from:   "5106 2742 5433 4321",
-		//		to:     "5106 2963 6456 3454",
-		//		amount: 1000_00,
-		//	},
-		//	wantTotal: 1005_00,
-		//	wantOk:    nil,
-		//},
+		{
+			name: "Неправильная карта своего банка -> Карта чужого банка",
+			fields: fields{
+				CardSvc: &card.Service{
+					BankName: "YourBank",
+					Cards: []*card.Card{
+						{
+							Id: "0001",
+							Owner: card.Owner{
+								FirstName: "Artem",
+								LastName:  "Balusov",
+							},
+							Issuer:   "Visa",
+							Balance:  43534_34,
+							Currency: "RUR",
+							Number:   "5106 2158 3920 4837",
+							Icon:     "http://...",
+						},
+						{
+							Id: "0002",
+							Owner: card.Owner{
+								FirstName: "Ivan",
+								LastName:  "Ivanov",
+							},
+							Issuer:   "MasterCard",
+							Balance:  543534_23,
+							Currency: "RUR",
+							Number:   "5106 2163 6456 3456",
+							Icon:     "http://...",
+						},
+					},
+				},
+				Commission:    0.5,
+				CommissionMin: 10,
+			},
+			args: args{
+				from:   "5106 2742 5433 4321",
+				to:     "4578 8942 5433 4329",
+				amount: 1000_00,
+			},
+			wantTotal: 1000_00,
+			wantOk:    ErrInvalidCardNumber,
+		},
+		{
+			name: "Карта чужого банка -> Неправильная карта своего банка",
+			fields: fields{
+				CardSvc: &card.Service{
+					BankName: "YourBank",
+					Cards: []*card.Card{
+						{
+							Id: "0001",
+							Owner: card.Owner{
+								FirstName: "Artem",
+								LastName:  "Balusov",
+							},
+							Issuer:   "Visa",
+							Balance:  43534_34,
+							Currency: "RUR",
+							Number:   "5106 2158 3920 4837",
+							Icon:     "http://...",
+						},
+						{
+							Id: "0002",
+							Owner: card.Owner{
+								FirstName: "Ivan",
+								LastName:  "Ivanov",
+							},
+							Issuer:   "MasterCard",
+							Balance:  543534_23,
+							Currency: "RUR",
+							Number:   "5106 2163 6456 3456",
+							Icon:     "http://...",
+						},
+					},
+				},
+				Commission:    0.5,
+				CommissionMin: 10,
+			},
+			args: args{
+				from:   "4578 8942 5433 4329",
+				to:     "5106 2163 6856 3456",
+				amount: 1000_00,
+			},
+			wantTotal: 1000_00,
+			wantOk:    ErrInvalidCardNumber,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
