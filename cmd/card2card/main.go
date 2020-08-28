@@ -34,7 +34,7 @@ func main() {
 	fmt.Println(visa)
 	fmt.Println(master)
 
-	transfer.IsValid("3243 2323 8768 8769")
+	s := transfer.IsValid("4  5  6  1     2  6  1  2     1  2  3  4     5  4  6  7")
 	//
 	//transferSrv := transfer.NewService(svc, 0.5, 10)
 	//
@@ -43,4 +43,6 @@ func main() {
 	//fmt.Println(total, status)
 	//fmt.Println(visa)
 	//fmt.Println(master)
+	fmt.Println(s)
+
 }

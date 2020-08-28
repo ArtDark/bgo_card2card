@@ -65,9 +65,11 @@ func (s *Service) CardIssue(
 
 var ErrCardNotFound = errors.New("card not found")
 
+const prefix = "5106 21" //Первые 6 цифр нашего банка
+
 // Метод поиска банковской карты по номеру платежной системы
 func (s *Service) Card(number string) (*Card, error) {
-	var prefix = "5106_21"
+
 	for _, с := range s.Cards {
 		if strings.HasPrefix(с.Number, prefix) == true {
 			return с, nil
