@@ -70,7 +70,7 @@ func IsValid(n string) bool {
 // Функция перевода с карты на карту
 func (s *Service) Card2Card(from, to string, amount int) (int, error) {
 
-	if IsValid(from) != true && IsValid(to) != true {
+	if IsValid(from) != true || IsValid(to) != true {
 		return amount, ErrInvalidCardNumber
 	}
 
