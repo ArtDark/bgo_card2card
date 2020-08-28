@@ -38,7 +38,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "Visa",
 							Balance:  43534_34,
 							Currency: "RUR",
-							Number:   "5106 2142 5433 4322",
+							Number:   "5106 2158 3920 4837",
 							Icon:     "http://...",
 						},
 						{
@@ -50,7 +50,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "MasterCard",
 							Balance:  543534_23,
 							Currency: "RUR",
-							Number:   "5106 2163 6456 3453",
+							Number:   "5106 2163 6456 3456",
 							Icon:     "http://...",
 						},
 					},
@@ -59,8 +59,8 @@ func TestService_Card2Card(t *testing.T) {
 				CommissionMin: 10,
 			},
 			args: args{
-				from:   "5106 2142 5433 4322",
-				to:     "5106 2163 6456 3453",
+				from:   "5106 2158 3920 4837",
+				to:     "5106 2163 6456 3456",
 				amount: 1000_00,
 			},
 			wantTotal: 1005_00,
@@ -81,7 +81,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "Visa",
 							Balance:  34_34,
 							Currency: "RUR",
-							Number:   "5106 2142 5433 4322",
+							Number:   "5106 2158 3920 4837",
 							Icon:     "http://...",
 						},
 						{
@@ -93,7 +93,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "MasterCard",
 							Balance:  543534_23,
 							Currency: "RUR",
-							Number:   "5106 2163 6456 3453",
+							Number:   "5106 2163 6456 3456",
 							Icon:     "http://...",
 						},
 					},
@@ -102,8 +102,8 @@ func TestService_Card2Card(t *testing.T) {
 				CommissionMin: 10,
 			},
 			args: args{
-				from:   "5106 2142 5433 4322",
-				to:     "5106 2163 6456 3453",
+				from:   "5106 2158 3920 4837",
+				to:     "5106 2163 6456 3456",
 				amount: 1000_00,
 			},
 			wantTotal: 1000_00,
@@ -124,7 +124,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "Visa",
 							Balance:  43534_34,
 							Currency: "RUR",
-							Number:   "5106 2142 5433 4322",
+							Number:   "5106 2158 3920 4837",
 							Icon:     "http://...",
 						},
 						{
@@ -136,7 +136,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "MasterCard",
 							Balance:  543534_23,
 							Currency: "RUR",
-							Number:   "5106 2163 6456 3453",
+							Number:   "5106 2163 6456 3456",
 							Icon:     "http://...",
 						},
 					},
@@ -145,7 +145,7 @@ func TestService_Card2Card(t *testing.T) {
 				CommissionMin: 10,
 			},
 			args: args{
-				from:   "5106 2142 5433 4322",
+				from:   "5106 2158 3920 4837",
 				to:     "5106 2763 6456 3434",
 				amount: 1000_00,
 			},
@@ -167,7 +167,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "Visa",
 							Balance:  34_34,
 							Currency: "RUR",
-							Number:   "5106 2142 5433 4322",
+							Number:   "5106 2158 3920 4837",
 							Icon:     "http://...",
 						},
 						{
@@ -179,7 +179,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "MasterCard",
 							Balance:  543534_23,
 							Currency: "RUR",
-							Number:   "5106 2163 6456 3453",
+							Number:   "5106 2163 6456 3456",
 							Icon:     "http://...",
 						},
 					},
@@ -188,7 +188,7 @@ func TestService_Card2Card(t *testing.T) {
 				CommissionMin: 10,
 			},
 			args: args{
-				from:   "5106 2142 5433 4322",
+				from:   "5106 2158 3920 4837",
 				to:     "5106 2763 6456 3434",
 				amount: 1000_00,
 			},
@@ -210,7 +210,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "Visa",
 							Balance:  43534_34,
 							Currency: "RUR",
-							Number:   "5106 2142 5433 4322",
+							Number:   "5106 2158 3920 4837",
 							Icon:     "http://...",
 						},
 						{
@@ -222,7 +222,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "MasterCard",
 							Balance:  543534_23,
 							Currency: "RUR",
-							Number:   "5106 2163 6456 3453",
+							Number:   "5106 2163 6456 3456",
 							Icon:     "http://...",
 						},
 					},
@@ -232,7 +232,7 @@ func TestService_Card2Card(t *testing.T) {
 			},
 			args: args{
 				from:   "5106 2742 5433 4321",
-				to:     "5106 2163 6456 3453",
+				to:     "5106 2163 6456 3456",
 				amount: 1000_00,
 			},
 			wantTotal: 1005_00,
@@ -253,7 +253,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "Visa",
 							Balance:  43534_34,
 							Currency: "RUR",
-							Number:   "5106 2142 5433 4322",
+							Number:   "5106 2158 3920 4837",
 							Icon:     "http://...",
 						},
 						{
@@ -265,7 +265,7 @@ func TestService_Card2Card(t *testing.T) {
 							Issuer:   "MasterCard",
 							Balance:  543534_23,
 							Currency: "RUR",
-							Number:   "5106 2163 6456 3453",
+							Number:   "5106 2163 6456 3456",
 							Icon:     "http://...",
 						},
 					},
@@ -281,6 +281,49 @@ func TestService_Card2Card(t *testing.T) {
 			wantTotal: 1005_00,
 			wantOk:    nil,
 		},
+		//{
+		//	name: "Неправильная карта банка -> Карта чужого банка",
+		//	fields: fields{
+		//		CardSvc: &card.Service{
+		//			BankName: "YourBank",
+		//			Cards: []*card.Card{
+		//				{
+		//					Id: "0001",
+		//					Owner: card.Owner{
+		//						FirstName: "Artem",
+		//						LastName:  "Balusov",
+		//					},
+		//					Issuer:   "Visa",
+		//					Balance:  43534_34,
+		//					Currency: "RUR",
+		//					Number:   "5106 2158 3920 4837",
+		//					Icon:     "http://...",
+		//				},
+		//				{
+		//					Id: "0002",
+		//					Owner: card.Owner{
+		//						FirstName: "Ivan",
+		//						LastName:  "Ivanov",
+		//					},
+		//					Issuer:   "MasterCard",
+		//					Balance:  543534_23,
+		//					Currency: "RUR",
+		//					Number:   "5106 2163 6456 3456",
+		//					Icon:     "http://...",
+		//				},
+		//			},
+		//		},
+		//		Commission:    0.5,
+		//		CommissionMin: 10,
+		//	},
+		//	args: args{
+		//		from:   "5106 2742 5433 4321",
+		//		to:     "5106 2963 6456 3454",
+		//		amount: 1000_00,
+		//	},
+		//	wantTotal: 1005_00,
+		//	wantOk:    nil,
+		//},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -295,6 +338,45 @@ func TestService_Card2Card(t *testing.T) {
 			}
 			if gotOk != tt.wantOk {
 				t.Errorf("Card2Card() gotOk = %v, want %v", gotOk, tt.wantOk)
+			}
+		})
+	}
+}
+
+func TestIsValid(t *testing.T) {
+	type args struct {
+		n string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "Неправильные символы",
+			args: args{"1233 2132 2131 213q"},
+			want: false,
+		},
+		{
+			name: "Правильный номер карты",
+			args: args{"4561 2612 1234 5467"},
+			want: true,
+		},
+		{
+			name: "Неправильный номер карты",
+			args: args{"4561 2662 1234 5467"},
+			want: false,
+		},
+		{
+			name: "Неправильная длина номера карты",
+			args: args{"4561 2612 12374 5467"},
+			want: false,
+		}, // TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := IsValid(tt.args.n); got != tt.want {
+				t.Errorf("IsValid() = %v, want %v", got, tt.want)
 			}
 		})
 	}
