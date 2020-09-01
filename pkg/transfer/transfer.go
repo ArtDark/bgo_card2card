@@ -15,9 +15,9 @@ type Service struct {
 	CommissionMin int64
 }
 
-func NewService(cardSvc *card.Service, commission float64, commissionMin int64) *Service {
-	return &Service{CardSvc: cardSvc, Commission: commission, CommissionMin: commissionMin}
-}
+//func NewService(cardSvc *card.Service, commission float64, commissionMin int64) *Service {
+//	return &Service{CardSvc: cardSvc, Commission: commission, CommissionMin: commissionMin}
+//}
 
 var (
 	ErrNotEnoughMoney    = errors.New("not enough money")
@@ -70,7 +70,7 @@ func IsValid(n string) bool {
 // Функция перевода с карты на карту
 func (s *Service) Card2Card(from, to string, amount int) (int, error) {
 
-	if IsValid(from) != true || IsValid(to) != true {
+	if !IsValid(from) || !IsValid(to) {
 		return amount, ErrInvalidCardNumber
 	}
 
@@ -80,7 +80,7 @@ func (s *Service) Card2Card(from, to string, amount int) (int, error) {
 	toCard, err := s.CardSvc.Card(to)
 	if err != nil {
 		toCard.Balance += amount
-		return total, nil
+		return total, err
 
 	}
 	fromCard, err := s.CardSvc.Card(from) // Поиск карты отправителя
