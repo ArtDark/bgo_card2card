@@ -12,8 +12,8 @@ func main() {
 
 	visa := svc.CardIssue(
 		"0001",
-		"Artem",
-		"Balusov",
+		"Petr",
+		"Petrov",
 		"Visa",
 		12345_67,
 		"RUR",

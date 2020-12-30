@@ -32,8 +32,8 @@ func TestService_Card2Card(t *testing.T) {
 						{
 							Id: "0001",
 							Owner: card.Owner{
-								FirstName: "Artem",
-								LastName:  "Balusov",
+								FirstName: "Petr",
+								LastName:  "Petrov",
 							},
 							Issuer:   "Visa",
 							Balance:  43534_34,
@@ -75,8 +75,8 @@ func TestService_Card2Card(t *testing.T) {
 						{
 							Id: "0001",
 							Owner: card.Owner{
-								FirstName: "Artem",
-								LastName:  "Balusov",
+								FirstName: "Petr",
+								LastName:  "Petrov",
 							},
 							Issuer:   "Visa",
 							Balance:  34_34,
@@ -118,8 +118,8 @@ func TestService_Card2Card(t *testing.T) {
 						{
 							Id: "0001",
 							Owner: card.Owner{
-								FirstName: "Artem",
-								LastName:  "Balusov",
+								FirstName: "Petr",
+								LastName:  "Petrov",
 							},
 							Issuer:   "Visa",
 							Balance:  43534_34,
@@ -161,8 +161,8 @@ func TestService_Card2Card(t *testing.T) {
 						{
 							Id: "0001",
 							Owner: card.Owner{
-								FirstName: "Artem",
-								LastName:  "Balusov",
+								FirstName: "Petr",
+								LastName:  "Petrov",
 							},
 							Issuer:   "Visa",
 							Balance:  34_34,
@@ -204,8 +204,8 @@ func TestService_Card2Card(t *testing.T) {
 						{
 							Id: "0001",
 							Owner: card.Owner{
-								FirstName: "Artem",
-								LastName:  "Balusov",
+								FirstName: "Petr",
+								LastName:  "Petrov",
 							},
 							Issuer:   "Visa",
 							Balance:  43534_34,
@@ -247,8 +247,8 @@ func TestService_Card2Card(t *testing.T) {
 						{
 							Id: "0001",
 							Owner: card.Owner{
-								FirstName: "Artem",
-								LastName:  "Balusov",
+								FirstName: "Petr",
+								LastName:  "Petrov",
 							},
 							Issuer:   "Visa",
 							Balance:  43534_34,
@@ -290,8 +290,8 @@ func TestService_Card2Card(t *testing.T) {
 						{
 							Id: "0001",
 							Owner: card.Owner{
-								FirstName: "Artem",
-								LastName:  "Balusov",
+								FirstName: "Petr",
+								LastName:  "Petrov",
 							},
 							Issuer:   "Visa",
 							Balance:  43534_34,
@@ -333,8 +333,8 @@ func TestService_Card2Card(t *testing.T) {
 						{
 							Id: "0001",
 							Owner: card.Owner{
-								FirstName: "Artem",
-								LastName:  "Balusov",
+								FirstName: "Petr",
+								LastName:  "Petrov",
 							},
 							Issuer:   "Visa",
 							Balance:  43534_34,
