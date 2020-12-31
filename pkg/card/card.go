@@ -10,14 +10,14 @@ import (
 type Card struct {
 	Id       cardId // Идентификатор карты в системе банка
 	Owner           // Владелец карты
-	Issuer   string // Длатежная истема
+	Issuer   string // Платежная система
 	Balance  int    // Баланс карты
 	Currency string // Валюта
 	Number   string // Номер карты в платежной системе
 	Icon     string // Иконка платежной системы
 }
 
-// Идентификат банковской карты
+// Идентификатор банковской карты
 type cardId string
 
 // Инициалы владельца банковской карты
@@ -39,24 +39,18 @@ func New(bankName string) *Service {
 
 // Метод создания экземпляра банковской карты
 func (s *Service) CardIssue(
-	id cardId,
 	fistName,
 	lastName,
 	issuer string,
-	balance int,
 	currency string,
-	number string,
 ) *Card {
 	var card = &Card{
-		Id: id,
 		Owner: Owner{
 			FirstName: fistName,
 			LastName:  lastName,
 		},
 		Issuer:   issuer,
-		Balance:  balance,
 		Currency: currency,
-		Number:   number,
 		Icon:     "https://.../logo.png",
 	}
 	s.Cards = append(s.Cards, card)
@@ -68,7 +62,7 @@ var ErrCardNotFound = errors.New("card not found")
 const prefix = "5106 21" //Первые 6 цифр нашего банка
 
 // Метод поиска банковской карты по номеру платежной системы
-func (s *Service) Card(number string) (*Card, error) {
+func (s *Service) Card() (*Card, error) {
 
 	for _, с := range s.Cards {
 		if strings.HasPrefix(с.Number, prefix) == true {
