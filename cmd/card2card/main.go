@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/ArtDark/bgo_card2card/pkg/card"
-	"github.com/ArtDark/bgo_card2card/pkg/transfer"
+	"github.com/ArtDark/bgo_methods/pkg/card"
+	"github.com/ArtDark/bgo_methods/pkg/transfer"
 )
 
 func main() {
