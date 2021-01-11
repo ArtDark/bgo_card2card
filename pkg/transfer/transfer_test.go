@@ -21,7 +21,7 @@ func TestService_Card2Card(t *testing.T) {
 		fields    fields
 		args      args
 		wantTotal int
-		wantOk    error
+		wantOk    bool
 	}{
 		{
 			name: "Карта своего банка -> Карта своего банка (денег достаточно)",
@@ -64,7 +64,7 @@ func TestService_Card2Card(t *testing.T) {
 				amount: 1000_00,
 			},
 			wantTotal: 1005_00,
-			wantOk:    nil,
+			wantOk:    true,
 		},
 		{
 			name: "Карта своего банка -> Карта своего банка (денег недостаточно)",
@@ -107,7 +107,7 @@ func TestService_Card2Card(t *testing.T) {
 				amount: 1000_00,
 			},
 			wantTotal: 1000_00,
-			wantOk:    ErrNotEnoughMoney,
+			wantOk:    false,
 		},
 		{
 			name: "Карта своего банка -> Карта чужого банка (денег достаточно)",
@@ -150,7 +150,7 @@ func TestService_Card2Card(t *testing.T) {
 				amount: 1000_00,
 			},
 			wantTotal: 1005_00,
-			wantOk:    nil,
+			wantOk:    true,
 		},
 		{
 			name: "Карта своего банка -> Карта чужого банка (денег недостаточно)",
@@ -193,7 +193,7 @@ func TestService_Card2Card(t *testing.T) {
 				amount: 1000_00,
 			},
 			wantTotal: 1000_00,
-			wantOk:    ErrNotEnoughMoney,
+			wantOk:    false,
 		},
 		{
 			name: "Карта чужого банка -> Карта своего банка",
@@ -236,7 +236,7 @@ func TestService_Card2Card(t *testing.T) {
 				amount: 1000_00,
 			},
 			wantTotal: 1005_00,
-			wantOk:    nil,
+			wantOk:    true,
 		},
 		{
 			name: "Карта чужого банка -> Карта чужого банка",
@@ -279,7 +279,7 @@ func TestService_Card2Card(t *testing.T) {
 				amount: 1000_00,
 			},
 			wantTotal: 1005_00,
-			wantOk:    nil,
+			wantOk:    true,
 		},
 		{
 			name: "Неправильная карта своего банка -> Карта чужого банка",
@@ -322,7 +322,7 @@ func TestService_Card2Card(t *testing.T) {
 				amount: 1000_00,
 			},
 			wantTotal: 1000_00,
-			wantOk:    ErrInvalidCardNumber,
+			wantOk:    false,
 		},
 		{
 			name: "Карта чужого банка -> Неправильная карта своего банка",
@@ -365,7 +365,7 @@ func TestService_Card2Card(t *testing.T) {
 				amount: 1000_00,
 			},
 			wantTotal: 1000_00,
-			wantOk:    ErrInvalidCardNumber,
+			wantOk:    false,
 		},
 	}
 	for _, tt := range tests {

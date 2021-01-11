@@ -2,8 +2,7 @@
 package transfer
 
 import (
-	"errors"
-	"github.com/ArtDark/bgo_errors/pkg/card"
+	"github.com/ArtDark/bgo_methods/pkg/card"
 	"strconv"
 	"strings"
 )
@@ -14,15 +13,6 @@ type Service struct {
 	Commission    float64
 	CommissionMin int64
 }
-
-//func NewService(cardSvc *card.Service, commission float64, commissionMin int64) *Service {
-//	return &Service{CardSvc: cardSvc, Commission: commission, CommissionMin: commissionMin}
-//}
-
-var (
-	ErrNotEnoughMoney    = errors.New("not enough money")
-	ErrInvalidCardNumber = errors.New("wrong card number")
-)
 
 // Функция проверки номера карты
 func IsValid(n string) bool {
@@ -68,40 +58,42 @@ func IsValid(n string) bool {
 }
 
 // Функция перевода с карты на карту
-func (s *Service) Card2Card(from, to string, amount int) (int, error) {
+func (s *Service) Card2Card(from, to string, amount int) (int, bool) {
 
 	if !IsValid(from) || !IsValid(to) {
-		return amount, ErrInvalidCardNumber
+		return amount, false
 	}
 
 	commission := float64(amount) * s.Commission / 100.0 //Расчет комиссии
 	total := amount + int(commission)                    // Расчет суммы перевода с комиссией
 
-	toCard, err := s.CardSvc.Card(to)
-	if err != nil {
+	toCard, err := s.CardSvc.FindCard(to)
+	if err != true {
 		toCard.Balance += amount
-		return total, err
+		return total, false
 
 	}
-	fromCard, err := s.CardSvc.Card(from) // Поиск карты отправителя
+	fromCard, err := s.CardSvc.FindCard(from) // Поиск карты отправителя
+	if err != true {
+		toCard.Balance += amount
+		return total, false
+
+	}
 
 	// Поиск карты получателя
-	if fromCard == nil && toCard == nil {
-		return total, nil
-	}
 
 	if toCard != nil && fromCard.Balance >= amount {
 		fromCard.Balance -= int(float64(amount) + commission)
-		return total, nil
+		return total, true
 	}
 
 	if amount > fromCard.Balance { // Если баланс меньше суммы
-		return amount, ErrNotEnoughMoney
+		return amount, false
 	}
 
 	fromCard.Balance -= total
 	toCard.Balance += amount
 
-	return total, nil
+	return total, true
 
 }

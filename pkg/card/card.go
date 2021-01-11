@@ -2,7 +2,6 @@
 package card
 
 import (
-	"errors"
 	"strings"
 )
 
@@ -57,17 +56,16 @@ func (s *Service) CardIssue(
 	return card
 }
 
-var ErrCardNotFound = errors.New("card not found")
-
 const prefix = "5106 21" //Первые 6 цифр нашего банка
 
 // Метод поиска банковской карты по номеру платежной системы
-func (s *Service) Card(number string) (*Card, error) {
+func (s *Service) FindCard(string) (*Card, bool) {
 
-	for _, с := range s.Cards {
-		if strings.HasPrefix(с.Number, prefix) == true {
-			return с, nil
+	for _, c := range s.Cards {
+		if strings.HasPrefix(c.Number, prefix) == true {
+			return c, true
+
 		}
 	}
-	return nil, ErrCardNotFound
+	return nil, false
 }
