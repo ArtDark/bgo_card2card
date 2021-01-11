@@ -3,7 +3,7 @@ package transfer
 
 import (
 	"errors"
-	"github.com/ArtDark/bgo_methods/pkg/card"
+	"github.com/ArtDark/bgo_errors/pkg/card"
 	"strconv"
 	"strings"
 )
