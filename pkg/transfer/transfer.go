@@ -58,37 +58,34 @@ func IsValid(n string) bool {
 }
 
 // Функция перевода с карты на карту
-func (s *Service) Card2Card(from, to string, amount int) (int, bool) {
+func (s *Service) Card2Card(from, to string, amount int) (total int, status bool) {
 
 	if !IsValid(from) || !IsValid(to) {
 		return amount, false
 	}
 
 	commission := float64(amount) * s.Commission / 100.0 //Расчет комиссии
-	total := amount + int(commission)                    // Расчет суммы перевода с комиссией
+	total = amount + int(commission)                     // Расчет суммы перевода с комиссией
 
-	toCard, err := s.CardSvc.FindCard(to)
-	if err != true {
-		toCard.Balance += amount
-		return total, false
+	fromCard, errFromCard := s.CardSvc.FindCard(from) // Поиск отправителя среди своих карт
+	toCard, errToCard := s.CardSvc.FindCard(to)       // Поиск получителя среди своих карт
 
-	}
-	fromCard, err := s.CardSvc.FindCard(from) // Поиск карты отправителя
-	if err != true {
-		toCard.Balance += amount
-		return total, false
-
-	}
-
-	// Поиск карты получателя
-
-	if toCard != nil && fromCard.Balance >= amount {
-		fromCard.Balance -= int(float64(amount) + commission)
+	if !errFromCard && !errToCard { // Если получатель и отправитель не найден среди своих карт
 		return total, true
 	}
 
-	if amount > fromCard.Balance { // Если баланс меньше суммы
-		return amount, false
+	if !errFromCard { // Если отправитель не найден среди своих карт
+		toCard.Balance += amount
+		return total, true
+	}
+
+	if amount > fromCard.Balance { // Если баланс отправителя меньше суммы
+		return total, false
+	}
+
+	if !errToCard { // Если если получатель  не найден среди своих карт
+		fromCard.Balance -= total
+		return total, true
 	}
 
 	fromCard.Balance -= total

@@ -2,6 +2,7 @@
 package card
 
 import (
+	"fmt"
 	"strings"
 )
 
@@ -31,6 +32,8 @@ type Service struct {
 	Cards    []*Card
 }
 
+const prefix = "5106 21" //Первые 6 цифр нашего банка
+
 // Конструктор сервиса
 func New(bankName string) *Service {
 	return &Service{BankName: bankName}
@@ -56,13 +59,12 @@ func (s *Service) CardIssue(
 	return card
 }
 
-const prefix = "5106 21" //Первые 6 цифр нашего банка
-
 // Метод поиска банковской карты по номеру платежной системы
-func (s *Service) FindCard(string) (*Card, bool) {
+func (s *Service) FindCard(num string) (*Card, bool) {
 
 	for _, c := range s.Cards {
-		if strings.HasPrefix(c.Number, prefix) == true {
+		if strings.HasPrefix(num, prefix) == true {
+			fmt.Println(c)
 			return c, true
 
 		}

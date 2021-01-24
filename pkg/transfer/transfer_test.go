@@ -106,7 +106,7 @@ func TestService_Card2Card(t *testing.T) {
 				to:     "5106 2163 6456 3456",
 				amount: 1000_00,
 			},
-			wantTotal: 1000_00,
+			wantTotal: 1005_00,
 			wantOk:    false,
 		},
 		{
@@ -192,7 +192,7 @@ func TestService_Card2Card(t *testing.T) {
 				to:     "4578 8942 5433 4329",
 				amount: 1000_00,
 			},
-			wantTotal: 1000_00,
+			wantTotal: 1005_00,
 			wantOk:    false,
 		},
 		{
