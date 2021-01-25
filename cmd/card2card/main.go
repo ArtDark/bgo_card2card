@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"github.com/ArtDark/bgo_methods/pkg/card"
-	"github.com/ArtDark/bgo_methods/pkg/transfer"
 )
 
 func main() {
@@ -27,9 +26,5 @@ func main() {
 	fmt.Println(svc)
 	fmt.Println(visa)
 	fmt.Println(master)
-
-	s := transfer.IsValid("4  5  6  1     2  6  1  2     1  2  3  4     5  4  6  7")
-
-	fmt.Println(s)
 
 }
